@@ -3,12 +3,17 @@ import telebot
 
 bot = telebot.TeleBot(config.TOKEN)
 
-@bot.message_handler(content_types=["start"])
+@bot.message_handler(commands=['help'])
+def tests(message): 
+    bot.reply_to(message,
+    """
+    Чем я могу помочь?
+    """)
+    
+
+@bot.message_handler(commands=["start"])
 def tests(message): 
     bot.send_message(message.from_user.id, 'Привет')
 
-@bot.message_handler(content_types=["text"])
-def tests(message): 
-    bot.send_message(message.chat.id, message.text)
 
-bot.polling(none_stop=True)
+bot.infinity_polling()
